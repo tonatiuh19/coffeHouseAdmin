@@ -1,0 +1,20 @@
+* {
+    box-sizing: border-box;
+  }
+  body {
+    background: #ffffff !important;
+    min-height: 100vh;
+    display: flex;
+    font-weight: 400;
+    font-family: 'Fira Sans', sans-serif;
+  }
+
+  .loadingFull {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+  }
+  
