@@ -3,6 +3,9 @@ import Loading from '../../utilities/Loading';
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Flag from 'react-world-flags';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { Modal, Button } from 'react-bootstrap';
 
 const Products = () => {
     const history = useHistory();
@@ -11,6 +14,25 @@ const Products = () => {
     const [user, setUser] = useState('');
     const [error, setError] = useState(false);
     const [erroMessage, setErrorMessage] = useState('');
+    const [showEdit, setShowEdit] = useState(false);
+    const [showCancel, setShowCancel] = useState(false);
+
+    //EditModal
+    const [titleEdit, setTitleEdit] = useState('');
+
+
+    const handleCloseEdit = () => setShowEdit(false);
+    const handleCloseCancel = () => setShowCancel(false);
+    
+    const handleShowEdit = (item) => {
+        setShowEdit(true);
+        setTitleEdit('#'+item.id_products+' '+'-'+' '+decode_utf8(item.name));
+    };
+
+    const handleShowCancel = (item) => {
+        setShowCancel(true)
+        
+    };
 
     const getUser = () =>{
         setLoading(true);
@@ -45,11 +67,53 @@ const Products = () => {
         //return(<Flag code={ mex } />);
     };
 
+    function decode_utf8(s) {
+        return decodeURIComponent(escape(s));
+    }
+
     return (
         <div>
             {loading ? 
             (<Loading></Loading>) : 
             (<div className="mt-3">
+                <Modal
+                    show={showEdit}
+                    size="lg"
+                    onHide={handleCloseEdit}
+                    backdrop="static"
+                    keyboard={false}
+                >
+                    <Modal.Header closeButton>
+                    <Modal.Title>{titleEdit}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                    I will not close if you click outside me. Don't even try to press
+                    escape key.
+                    </Modal.Body>
+                    <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseEdit}>
+                        Cancelar
+                    </Button>
+                    <Button variant="success">Guardar cambios</Button>
+                    </Modal.Footer>
+                </Modal>
+                <Modal
+                    show={showCancel}
+                    size="lg"
+                    onHide={handleCloseCancel}
+                    backdrop="static"
+                    keyboard={false}
+                >
+                    <Modal.Header closeButton>
+                    <Modal.Title>¿Estas seguro?</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseCancel}>
+                        Cancelar
+                    </Button>
+                    <Button variant="danger">Eliminar</Button>
+                    </Modal.Footer>
+                </Modal>
                 <div className="container">
                     <div className="row">
                     
@@ -67,15 +131,23 @@ const Products = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                { products.map((item) => {
+                                { products.map((item, index) => {
                                     return(
-                                        <tr>
+                                        <tr key={index}>
                                             <th scope="row">{item.id_products}</th>
-                                            <td>{item.name}</td>
+                                            <td>{decode_utf8(item.name)}</td>
                                             <td>{item.price}</td>
-                                            <td>{item.country}</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
+                                            <td>{decode_utf8(item.country)}</td>
+                                            <td>
+                                                <button className="btn btn-primary" onClick={() => handleShowEdit(item)}>
+                                                    <FontAwesomeIcon icon={faPencilAlt} />
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <button className="btn btn-danger" onClick={() => handleShowCancel(item)}>
+                                                    <FontAwesomeIcon icon={faTrashAlt} />
+                                                </button>
+                                            </td>
                                         </tr>
                                     );
                                     })
