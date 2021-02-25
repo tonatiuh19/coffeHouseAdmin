@@ -6,6 +6,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import Welcome from './components/content/Welcome';
 
 function App() {
+  document.title = "TienditaCafe | Proveedores"
   return (
     <Router>
       <Switch>

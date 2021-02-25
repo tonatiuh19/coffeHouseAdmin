@@ -17,4 +17,15 @@
     -webkit-transform: translateX(-50%) translateY(-50%);
     transform: translateX(-50%) translateY(-50%);
   }
+
+  .fixedBar {
+    position: fixed;
+  }
+
+  .sizeImgCard {
+    display: flex;
+    justify-content: center;
+    height: 50%;
+    width: 50%;
+  }
   

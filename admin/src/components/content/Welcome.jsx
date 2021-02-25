@@ -77,7 +77,7 @@ const Welcome = () => {
                 <Loading></Loading>
             ) : 
             (<div>
-                <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
                     <img src={Logo} className="img-fluid" alt="Responsive image" width="150"></img>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
@@ -117,18 +117,20 @@ const Welcome = () => {
                             </button>
                         </div>
                     </div>
-                </nav>                
-                <Switch>
-                    <Route path="/bienvenido/productos">
-                        <Products></Products>
-                    </Route>
-                    <Router path="/bienvenido/paquetes">
-                        <Packs></Packs>
-                    </Router>
-                    <Router path="/bienvenido/">
-                        <StartPage></StartPage>
-                    </Router>
-                </Switch>
+                </nav>   
+                <div style={{minHeight: '51.5rem', paddingTop: '3.5rem'}}>           
+                    <Switch>
+                        <Route path="/bienvenido/productos">
+                            <Products></Products>
+                        </Route>
+                        <Router path="/bienvenido/paquetes">
+                            <Packs></Packs>
+                        </Router>
+                        <Router path="/bienvenido/">
+                            <StartPage></StartPage>
+                        </Router>
+                    </Switch>
+                </div>  
             </div>
             )
             }
