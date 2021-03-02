@@ -24,9 +24,11 @@ const Login = () => {
                 setError(false);
                 setLoading(true);
                 signIn().then((x) => {
-                    //console.log(x[0]);
-                    localStorage.setItem("08191993", x[0].email)
-                    history.push("/bienvenido");
+                    if(x !== undefined){
+                        //console.log(x[0]);
+                        localStorage.setItem("08191993", x[0].email)
+                        history.push("/bienvenido");
+                    }
                 }).finally(() => setLoading(false));
             }else{
                 setError(true);

@@ -9,21 +9,19 @@ if($method == 'POST'){
 
 	if ($params['email']) {
 		$email = $params['email'];
-        $pwd = $params['pwd'];
 
-		$sql = "SELECT email, name, last_name, type, active FROM users WHERE email='$email' AND pwd='$pwd' and active=1 and type=3";
+		$sql = "SELECT COUNT(a.id_products) as 'count' FROM products as a WHERE a.email_user='".$email."' AND (a.active=1 or a.active=3)";
+
 		$result = $conn->query($sql);
 		if ($result->num_rows > 0) {
-			//echo 'Hola';
-			//echo $result;
 			while($row = $result->fetch_assoc()) {
 				$array[] = array_map('utf8_encode', $row);
 			}
 			$res = json_encode($array, JSON_NUMERIC_CHECK);
-			header('Content-Type: application/json');
+			header('Content-type: application/json; charset=utf-8');
 			echo $res;
 		} else {
-			echo "0";
+			echo "No results";
 		}
 	}else{
 		echo "Not valid Body Data";
