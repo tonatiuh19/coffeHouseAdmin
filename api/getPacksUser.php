@@ -14,7 +14,7 @@ if($method == 'POST'){
         INNER JOIN (SELECT a.id_prices, a.id_products, a.price FROM prices AS a WHERE date = ( SELECT MAX(date) FROM prices AS b WHERE a.id_products = b.id_products )) as e on d.id_products=e.id_products 
         INNER JOIN (SELECT a.id_stock, a.id_products, a.quantity FROM stock AS a WHERE date = ( SELECT MAX(date) FROM stock AS b WHERE a.id_products = b.id_products )) as f on f.id_products=e.id_products
         INNER JOIN countries as m on m.id_country=d.id_country 
-        WHERE d.id_product_type=3 and d.email_user='".$email."'
+        WHERE d.id_product_type=3 and d.active<>0 and d.email_user='".$email."'
 		ORDER BY f.quantity ASC";
 		
 		$result = $conn->query($sql);

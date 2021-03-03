@@ -9,7 +9,7 @@ import { getUserProducts, getCountries, updateProducs, deactivateProduct, getPro
 
 const Products = () => {
     const history = useHistory();
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [products, setProducts] = useState([]);
     const [countries, setCountries] = useState([]);
     const [productTypes, setProductTypes] = useState([]);
@@ -293,7 +293,7 @@ const Products = () => {
         formData.append("avatar", image.raw);
         formData.append("id_products", idProductImage);
         
-        axios.post( 'http://localhost:8016/dashboard/user/uploadImage.php',
+        axios.post( 'https://tienditacafe.com/dashboard/user/uploadImage.php',
           formData,
           {
             headers: {
@@ -303,7 +303,6 @@ const Products = () => {
         ).then(function(res){
           //console.log('SUCCESS!!', res.data);
           if(res.data.status == 1){
-            setLoadingImage(false);
             getUserProducts(getUser()).then((x) => setProducts(x)).finally(() => {
                 setLoadingImage(false);
                 setShowImage(false);

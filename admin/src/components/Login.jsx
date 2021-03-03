@@ -40,7 +40,7 @@ const Login = () => {
 
     const signIn = async () =>{
         try {
-            const response = await axios.post('http://localhost:8015/login.php', 
+            const response = await axios.post('https://tienditacafe.com/proveedores/api/login.php', 
                 { 
                     email: email,
                     pwd: password 

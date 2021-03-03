@@ -8,7 +8,7 @@ import Welcome from './components/content/Welcome';
 function App() {
   document.title = "TienditaCafe | Proveedores"
   return (
-    <Router>
+    <Router basename="/">
       <Switch>
         <Route exact path='/' component={Login} />
         <Route path="/bienvenido" component={Welcome} />
