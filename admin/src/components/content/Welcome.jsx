@@ -30,7 +30,7 @@ const Welcome = () => {
 
     const getUserData = async () => {
         try {
-            const response = await axios.post('http://localhost:8015/getUserData.php', 
+            const response = await axios.post('https://tienditacafe.com/proveedores/api/getUserData.php', 
                 { 
                     email: user
                 }
