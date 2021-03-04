@@ -63,7 +63,6 @@ const Welcome = () => {
 
     useEffect(() => {
         getUser().then((x) => setUser(x)).finally(() => {            
-            console.log(user);
             getUserData().then((x) => {
                 if(x !== undefined){
                     const name = x[0].name+' '+x[0].last_name

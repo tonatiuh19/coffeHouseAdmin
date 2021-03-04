@@ -82,7 +82,9 @@ const Login = () => {
             <div className="auth-wrapper">
                 <div className="auth-inner">
                     <div>
-                        <img src={Logo} className="img-fluid" alt="Responsive image"></img>
+                        <a href="https://tienditacafe.com/">
+                            <img src={Logo} className="img-fluid" alt="Responsive image"></img>
+                        </a>
                         <h3></h3>
 
                         <div className="form-group">
@@ -95,7 +97,7 @@ const Login = () => {
                         {error ? (<div className="alert alert-danger" role="alert">{erroMessage}</div>) : null}
                         <button type="submit" className="btn btn-primary btn-block" onClick={() => signInValidation()}>Entrar</button>
                         <p className="forgot-password text-right">
-                            <a href="#">Olvide mi contraseña</a>
+                            {/*<a href="#">Olvide mi contraseña</a>*/}
                         </p>
                         {loading ?
                         (<div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
