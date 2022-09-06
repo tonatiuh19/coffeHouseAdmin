@@ -17,6 +17,7 @@ import Packs from "./Packs";
 import Start from "./Start";
 import Loading from "../../utilities/Loading";
 import { getUserData } from "../../api/functionApis";
+import Sales from "./Sales";
 
 const Welcome = () => {
   const history = useHistory();
@@ -147,10 +148,8 @@ const Welcome = () => {
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link to="/bienvenido/paquetes">
-                      <button className="nav-link btn btn-link">
-                        Paquetes
-                      </button>
+                    <Link to="/bienvenido/ventas">
+                      <button className="nav-link btn btn-link">Ventas</button>
                     </Link>
                   </li>
                   <li className="nav-item">
@@ -186,6 +185,9 @@ const Welcome = () => {
                 </Route>
                 <Router path="/bienvenido/paquetes">
                   <Packs></Packs>
+                </Router>
+                <Router path="/bienvenido/ventas">
+                  <Sales />
                 </Router>
                 <Router path="/bienvenido/">
                   <StartPage></StartPage>
