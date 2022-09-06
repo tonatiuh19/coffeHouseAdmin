@@ -275,6 +275,24 @@ export const getUserData = async (email) => {
   }
 };
 
+export const getUserSales = async (email) => {
+  try {
+    const response = await axios.post(
+      "http://localhost:8015/getUserSales.php",
+      {
+        email: email,
+      }
+    );
+    if (response.data === 0) {
+      return false;
+    } else {
+      return response.data;
+    }
+  } catch (e) {
+    throw new Error(`😱 Request failed: ${e}`);
+  }
+};
+
 export const getUserProducts = async (userEmail) => {
   try {
     const response = await axios.post(
