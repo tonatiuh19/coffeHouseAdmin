@@ -13,15 +13,25 @@ if($method == 'POST'){
 	if ($params['email']) {
 		$email = $params['email'];
 
-		/*$sql = "SELECT d.id_products, e.price, d.name, d.description, d.long_description, d.id_country, i.country, y.quantity, h.id_product_f_acidez_types, k.id_product_f_cuerpo_types, m.id_product_f_sabor_types, d.id_product_type, d.active
-		FROM products as d INNER JOIN countries as i on i.id_country=d.id_country 
-		INNER JOIN (SELECT a.id_products, a.price FROM prices AS a INNER JOIN (SELECT id_products, MAX(Date) as TopDate FROM prices GROUP BY id_products) AS EachItem ON EachItem.TopDate = a.date AND EachItem.id_products = a.id_products ORDER BY `a`.`id_products` ASC) as e on d.id_products=e.id_products 
-		INNER JOIN (SELECT a.id_products, a.quantity FROM stock AS a INNER JOIN (SELECT id_products, MAX(Date) as TopDate FROM stock GROUP BY id_products) AS EachItem ON EachItem.TopDate = a.date AND EachItem.id_products = a.id_products ORDER BY `a`.`id_products` ASC) as y on y.id_products=d.id_products 
-		LEFT JOIN product_f_acidez as h on h.id_product=d.id_products
-		LEFT JOIN product_f_cuerpo as k on k.id_product=d.id_products
-		LEFT JOIN product_f_sabor as m on m.id_product=d.id_products
-		WHERE (d.active=2 or d.active=1 or d.active=3) and d.email_user='".$email."' and y.quantity>=0 and d.id_country NOT IN ( SELECT id_country FROM countries WHERE id_country=10 ) 
-		ORDER BY y.quantity ASC";
+		$sql = "SELECT a.id_orders, 
+			a.email_user, 
+			e.name as 'first_name',
+            e.last_name,
+			a.id_adress, 
+			a.date, 
+			a.complete, 
+			a.track_id, 
+			a.shipment_label_url,
+			b.quantity,
+			c.id_products,
+			c.name
+		FROM orders as a 
+		INNER JOIN carts as b on b.id_orders=a.id_orders
+		INNER JOIN products as c on c.id_products=b.id_products
+		INNER JOIN users as d on d.email=c.email_user
+		LEFT JOIN users as e on e.email = a.email_user
+		WHERE d.email='".$email."'
+		ORDER BY a.date ASC";
 		
 		$result = $conn->query($sql);
 		if ($result->num_rows > 0) {
@@ -31,9 +41,9 @@ if($method == 'POST'){
 			$res = json_encode($array, JSON_NUMERIC_CHECK);
 			header('Content-type: application/json; charset=utf-8');
 			echo $res;
-		} else {*/
+		} else {
 			echo "0";
-		//}
+		}
 	}else{
 		echo "Not valid Body Data";
 	}
