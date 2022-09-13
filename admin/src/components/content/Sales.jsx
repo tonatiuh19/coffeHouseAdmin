@@ -8,6 +8,7 @@ import getUser from "../../utils/functions/getUser";
 import { FaBeer } from 'react-icons/fa';
 import { TiWarning } from 'react-icons/ti';
 import { BsPatchCheckFill } from 'react-icons/bs';
+import { HiOutlineDownload } from 'react-icons/hi';
 
 const Sales = () => {
   const [loading, setLoading] = useState(false);
@@ -41,7 +42,7 @@ const Sales = () => {
       return <a className="btn btn-warning btn-sm" 
       target="_blank" 
       href={label}>
-        <FaBeer />
+        <HiOutlineDownload />
       </a>
     }else if(status === 2){
       return <button className="btn btn-success btn-sm" >
@@ -62,8 +63,8 @@ const Sales = () => {
                     <thead>
                         <tr>
                           <th scope="col">Orden</th>
-                          <th scope="col" className="table-info">Producto</th>
-                          <th scope="col" className="table-info">Cantidad</th>
+                          <th scope="col" className="table-secondary">Producto</th>
+                          <th scope="col" className="table-secondary">Cantidad</th>
                           <th scope="col">Cliente</th>
                           <th scope="col">Estatus</th>
                           <th
@@ -84,12 +85,12 @@ const Sales = () => {
                                 item.id_orders
                               }
                             </td>
-                            <td className="table-info">
+                            <td className="table-secondary">
                               {
                                  <b>{decodeUtf8(item.name)}</b>
                               }
                             </td>
-                            <td className="table-info text-center">
+                            <td className="table-secondary text-center">
                               {
                                 <b>{item.quantity}</b>
                               }

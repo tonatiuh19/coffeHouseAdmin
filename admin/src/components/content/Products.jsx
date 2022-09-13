@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Loading from "../../utilities/Loading";
-import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -21,16 +20,11 @@ import {
 } from "../../api/functionApis";
 
 const Products = () => {
-  const history = useHistory();
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
   const [countries, setCountries] = useState([]);
   const [productTypes, setProductTypes] = useState([]);
   const [noProducts, setNoProducts] = useState(true);
-
-  const [user, setUser] = useState("");
-  const [error, setError] = useState(false);
-  const [erroMessage, setErrorMessage] = useState("");
 
   //EditModal
   const [loadingEdit, setLoadingEdit] = useState(false);
