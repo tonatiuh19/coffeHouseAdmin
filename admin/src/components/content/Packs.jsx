@@ -100,7 +100,7 @@ const Packs = () => {
         formData.append("avatar", image.raw);
         formData.append("id_products", idProductImage);
         
-        axios.post( 'https://tienditacafe.com/dashboard/user/uploadImage.php',
+        axios.post( 'https://bolsadecafe.com/dashboard/user/uploadImage.php',
           formData,
           {
             headers: {
@@ -641,7 +641,7 @@ const Packs = () => {
                         backdrop="static" 
                         keyboard={false}>
                         <Modal.Header closeButton>
-                        <Modal.Title>Para que el paquete sea visible en TienditaCafe, necesitas incluir una imagen del conjunto.</Modal.Title>
+                        <Modal.Title>Para que el paquete sea visible en BolsaDeCafe, necesitas incluir una imagen del conjunto.</Modal.Title>
                         </Modal.Header>
                         <Modal.Footer>
                             <Button variant="secondary" onClick={handleCloseImgNew}>

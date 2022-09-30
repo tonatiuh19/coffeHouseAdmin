@@ -17,6 +17,7 @@ import Packs from "./Packs";
 import Start from "./Start";
 import Loading from "../../utilities/Loading";
 import { getUserData } from "../../api/functionApis";
+import Sales from "./Sales";
 
 const Welcome = () => {
   const history = useHistory();
@@ -34,22 +35,6 @@ const Welcome = () => {
     }
     return loggedInUser;
   };
-
-  /*const getUserData = async () => {
-        try {
-            const response = await axios.post('https://tienditacafe.com/proveedores/api/getUserData.php', 
-                { 
-                    email: user
-                }
-            );
-            return response.data;
-        } catch (e) {
-            setLoading(false);
-            setError(true);
-            setErrorMessage(`😱 Request failed: ${e}`);
-            console.log(`😱 Request failed: ${e}`);
-        }
-    };*/
 
   const logout = () => {
     localStorage.clear();
@@ -115,7 +100,7 @@ const Welcome = () => {
                 src={Logo}
                 className="img-fluid"
                 alt="Responsive image"
-                width="150"
+                width="80"
               ></img>
               <button
                 className="navbar-toggler"
@@ -147,10 +132,8 @@ const Welcome = () => {
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link to="/bienvenido/paquetes">
-                      <button className="nav-link btn btn-link">
-                        Paquetes
-                      </button>
+                    <Link to="/bienvenido/ventas">
+                      <button className="nav-link btn btn-link">Ventas</button>
                     </Link>
                   </li>
                   <li className="nav-item">
@@ -186,6 +169,9 @@ const Welcome = () => {
                 </Route>
                 <Router path="/bienvenido/paquetes">
                   <Packs></Packs>
+                </Router>
+                <Router path="/bienvenido/ventas">
+                  <Sales />
                 </Router>
                 <Router path="/bienvenido/">
                   <StartPage></StartPage>

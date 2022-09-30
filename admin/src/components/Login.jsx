@@ -72,7 +72,7 @@ const Login = () => {
       <div className="auth-wrapper">
         <div className="auth-inner">
           <div>
-            <a href="https://tienditacafe.com/">
+            <a href="https://bolsadecafe.com/">
               <img
                 src={Logo}
                 className="img-fluid"
