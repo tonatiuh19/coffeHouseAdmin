@@ -58,7 +58,7 @@ const Products = () => {
   const [nameNew, setNameNew] = useState("");
   const [descriptionNew, setDescriptionNew] = useState("");
   const [descriptionLongNew, setLongDescriptionNew] = useState("");
-  const [idCountryNew, setIdCountryNew] = useState(0);
+  const [idCountryNew, setIdCountryNew] = useState(1);
   const [priceNew, setPriceNew] = useState("");
   const [quantityNew, setQuantityNew] = useState(0);
   const [idProductNew, setIdProductNew] = useState(0);
@@ -352,7 +352,7 @@ const Products = () => {
 
     axios
       .post(
-        "https://tienditacafe.com/dashboard/user/uploadImage.php",
+        "https://bolsadecafe.com/dashboard/user/uploadImage.php",
         formData,
         {
           headers: {

@@ -1,6 +1,6 @@
 {
   "name": "admin",
-  "homepage": ".",
+  "homepage": "https://bolsadecafe.com/proveedores",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

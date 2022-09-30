@@ -36,22 +36,6 @@ const Welcome = () => {
     return loggedInUser;
   };
 
-  /*const getUserData = async () => {
-        try {
-            const response = await axios.post('https://tienditacafe.com/proveedores/api/getUserData.php', 
-                { 
-                    email: user
-                }
-            );
-            return response.data;
-        } catch (e) {
-            setLoading(false);
-            setError(true);
-            setErrorMessage(`😱 Request failed: ${e}`);
-            console.log(`😱 Request failed: ${e}`);
-        }
-    };*/
-
   const logout = () => {
     localStorage.clear();
     history.push("/");
@@ -116,7 +100,7 @@ const Welcome = () => {
                 src={Logo}
                 className="img-fluid"
                 alt="Responsive image"
-                width="150"
+                width="80"
               ></img>
               <button
                 className="navbar-toggler"
