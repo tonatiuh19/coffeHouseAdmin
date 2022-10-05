@@ -10,14 +10,13 @@ import {
   Link,
 } from "react-router-dom";
 import Logo from "../../resources/images/logo.png";
-import axios from "axios";
 import Products from "./Products";
 import StartPage from "./Start";
 import Packs from "./Packs";
-import Start from "./Start";
 import Loading from "../../utilities/Loading";
-import { getUserData } from "../../api/functionApis";
+import { getAddressUser, getUserData } from "../../api/functionApis";
 import Sales from "./Sales";
+import AddressForm from "../AddressForm/AddressForm";
 
 const Welcome = () => {
   const history = useHistory();
@@ -26,6 +25,7 @@ const Welcome = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [hasAddress, setHasAddress] = useState(false);
 
   const getUser = async () => {
     setLoading(true);
@@ -57,6 +57,13 @@ const Welcome = () => {
     getUser()
       .then((x) => setUser(x))
       .finally(() => {
+        getAddressUser(user).then((x) => {
+          if (x === false) {
+            setHasAddress(true);
+          } else {
+            setHasAddress(false);
+          }
+        });
         getUserData(user)
           .then((x) => {
             if (x) {
@@ -73,6 +80,19 @@ const Welcome = () => {
       });
   }, [fullName]);
 
+  const updatingAdrress = (status) => {
+    if (status) {
+      setHasAddress(false);
+      setLoading(false);
+    } else {
+      setLoading(false);
+      setError(true);
+      setErrorMessage(
+        "Por el momento nuestros servicios se encuentran en mantenimiento, vuelve despues."
+      );
+    }
+  };
+
   if (error) {
     return (
       <div className="container loadingFull">
@@ -88,6 +108,8 @@ const Welcome = () => {
         </div>
       </div>
     );
+  } else if (hasAddress) {
+    return <AddressForm updateAddress={updatingAdrress} />;
   } else {
     return (
       <div>

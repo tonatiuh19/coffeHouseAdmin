@@ -1,7 +1,7 @@
 import axios from "axios";
 
 //Production
-export const signIn = async (email, password) => {
+/*export const signIn = async (email, password) => {
   try {
     const response = await axios.post("https://bolsadecafe.com/proveedores/api/login.php", {
       email: email,
@@ -328,16 +328,33 @@ export const updatePackProductsIds = async (
   } catch (e) {
     return `😱 Request failed: ${e}`;
   }
-};
-
+};*/
 
 //Testing
-/*export const signIn = async (email, password) => {
+export const signIn = async (email, password) => {
   try {
     const response = await axios.post("http://localhost:8015/login.php", {
       email: email,
       pwd: password,
     });
+    if (response.data === 0) {
+      return false;
+    } else {
+      return response.data;
+    }
+  } catch (e) {
+    throw new Error(`😱 Request failed: ${e}`);
+  }
+};
+
+export const getAddressUser = async (email) => {
+  try {
+    const response = await axios.post(
+      "http://localhost:8015/getAddressUser.php",
+      {
+        email: email,
+      }
+    );
     if (response.data === 0) {
       return false;
     } else {
@@ -481,6 +498,38 @@ export const newProduct = async (
         id_product_f_acidez_types: acidezType,
         id_product_f_cuerpo_types: cuerpoType,
         id_product_f_sabor_types: saborType,
+      }
+    );
+    return response.data;
+  } catch (e) {
+    return `😱 Request failed: ${e}`;
+  }
+};
+
+export const newAddress = async (
+  emailUser,
+  street,
+  no,
+  noInt,
+  city,
+  state,
+  cp,
+  colony,
+  description
+) => {
+  try {
+    const response = await axios.post(
+      "http://localhost:8015/insertNewAddress.php",
+      {
+        email: emailUser,
+        street: street,
+        no: no,
+        noInt: noInt,
+        city: city,
+        state: state,
+        description: description.replace(/\n|\r/g, ""),
+        cp: cp,
+        colony: colony,
       }
     );
     return response.data;
@@ -659,4 +708,4 @@ export const updatePackProductsIds = async (
   } catch (e) {
     return `😱 Request failed: ${e}`;
   }
-};*/
+};
