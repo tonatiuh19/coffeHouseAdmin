@@ -16,7 +16,7 @@ const Start = () => {
     <div className="container loadingFull">
       <div className="row text-center">
         <div className="col-sm-12">
-          <h3>Bienvenido al portal de provedores</h3>
+          <h3>Bienvenido al portal de proveedores</h3>
         </div>
         <div className="col-sm-12">
           Aqui podras administrar tus productos y crear paquetes para vender de

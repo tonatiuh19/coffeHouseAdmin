@@ -13,7 +13,7 @@ if($method == 'POST'){
 	if ($params['email']) {
 		$email = $params['email'];
 
-		$sql = "SELECT d.id_products, e.price, d.name, d.description, d.long_description, d.id_country, i.country, y.quantity, h.id_product_f_acidez_types, k.id_product_f_cuerpo_types, m.id_product_f_sabor_types, d.id_product_type, d.active
+		$sql = "SELECT d.id_products, e.price, d.name, d.description, d.peso, d.long_description, d.id_country, i.country, y.quantity, h.id_product_f_acidez_types, k.id_product_f_cuerpo_types, m.id_product_f_sabor_types, d.id_product_type, d.active
 		FROM products as d INNER JOIN countries as i on i.id_country=d.id_country 
 		INNER JOIN (SELECT a.id_products, a.price FROM prices AS a INNER JOIN (SELECT id_products, MAX(Date) as TopDate FROM prices GROUP BY id_products) AS EachItem ON EachItem.TopDate = a.date AND EachItem.id_products = a.id_products ORDER BY `a`.`id_products` ASC) as e on d.id_products=e.id_products 
 		INNER JOIN (SELECT a.id_products, a.quantity FROM stock AS a INNER JOIN (SELECT id_products, MAX(Date) as TopDate FROM stock GROUP BY id_products) AS EachItem ON EachItem.TopDate = a.date AND EachItem.id_products = a.id_products ORDER BY `a`.`id_products` ASC) as y on y.id_products=d.id_products 
