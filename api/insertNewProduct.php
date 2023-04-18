@@ -13,6 +13,7 @@ if($method == 'POST'){
 	if ($params['email']) {
 		$email = $params['email'];
         $name = $params['name'];
+        $peso = $params['peso'];
         $description = $params['description'];
         $id_product_type = $params['id_product_type'];
         $id_country = $params['id_country'];
@@ -26,7 +27,7 @@ if($method == 'POST'){
             $id_product_f_cuerpo_types = $params['id_product_f_cuerpo_types'];
             $id_product_f_sabor_types = $params['id_product_f_sabor_types'];
 
-            $sql = "INSERT INTO products (name, description, id_product_type, id_country, email_user, date, active, long_description) VALUES ('$name', '$description', '$id_product_type', '$id_country', '$email', '$todayVisit', '2', '$long_description')";
+            $sql = "INSERT INTO products (name, description, peso, id_product_type, id_country, email_user, date, active, long_description) VALUES ('$name', '$description', '$peso', '$id_product_type', '$id_country', '$email', '$todayVisit', '2', '$long_description')";
 
             if ($conn->query($sql) === TRUE) {
                 $sql2 = "SELECT id_products, name FROM products WHERE email_user='".$email."' AND id_country=".$id_country." AND date='".$todayVisit."' AND id_product_type=".$id_product_type."";

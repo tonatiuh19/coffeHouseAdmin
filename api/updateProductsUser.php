@@ -13,6 +13,7 @@ if($method == 'POST'){
 	if ($params['email']) {
 		$email = $params['email'];
         $name = $params['name'];
+        $peso = $params['peso'];
         $description = $params['description'];
         $long_description = $params['long_description'];
         $id_country = $params['id_country'];
@@ -27,7 +28,7 @@ if($method == 'POST'){
             $id_product_f_acidez_types = $params['id_product_f_acidez_types'];
             $id_product_f_cuerpo_types = $params['id_product_f_cuerpo_types'];
             $id_product_f_sabor_types = $params['id_product_f_sabor_types'];
-            $sql = "UPDATE products SET name='$name', description='$description', long_description='$long_description', id_country='$id_country' WHERE id_products=".$id_products."";
+            $sql = "UPDATE products SET name='$name', peso='$peso', description='$description', long_description='$long_description', id_country='$id_country' WHERE id_products=".$id_products."";
 
             if ($conn->query($sql) === TRUE) {
                 $sql2 = "INSERT INTO prices (id_products, price, date)

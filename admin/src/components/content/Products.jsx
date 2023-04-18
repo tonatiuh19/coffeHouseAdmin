@@ -31,6 +31,7 @@ const Products = () => {
   const [showEdit, setShowEdit] = useState(false);
   const [titleEdit, setTitleEdit] = useState("");
   const [nameEdit, setNameEdit] = useState("");
+  const [weightEdit, setWeightEdit] = useState("");
   const [descriptionEdit, setDescriptionEdit] = useState("");
   const [descriptionLongEdit, setLongDescriptionEdit] = useState("");
   const [idCountryEdit, setIdCountryEdit] = useState(0);
@@ -43,6 +44,7 @@ const Products = () => {
   const [productAcidezEdit, setProductAcidezEdit] = useState(0);
 
   const [nameEditValidation, setNameEditValidation] = useState(false);
+  const [weightEditValidation, setWeightEditValidation] = useState(false);
   const [descriptionEditValidation, setDescriptionEditValidation] =
     useState(false);
   const [descriptionLongEditValidation, setLongDescriptionEditValidation] =
@@ -60,6 +62,7 @@ const Products = () => {
   const [descriptionLongNew, setLongDescriptionNew] = useState("");
   const [idCountryNew, setIdCountryNew] = useState(1);
   const [priceNew, setPriceNew] = useState("");
+  const [weightNew, setWeightNew] = useState("");
   const [quantityNew, setQuantityNew] = useState(0);
   const [idProductNew, setIdProductNew] = useState(0);
   const [idProductTypeNew, setIdProductTypeNew] = useState(1);
@@ -74,6 +77,7 @@ const Products = () => {
   const [descriptionLongNewValidation, setLongDescriptionNewValidation] =
     useState(false);
   const [priceNewValidation, setPriceNewValidation] = useState(false);
+  const [weightNewValidation, setWeightNewValidation] = useState(false);
   const [quantityNewValidation, setQuantityNewValidation] = useState(false);
 
   //DeactivateModal
@@ -96,6 +100,7 @@ const Products = () => {
 
   const handleShowNew = () => {
     setNameNew("");
+    setWeightNew('');
     setDescriptionNew("");
     setLongDescriptionNew("");
     setPriceNew("");
@@ -143,6 +148,15 @@ const Products = () => {
     } else {
       setPriceNewValidation(false);
     }
+
+    if (weightNew === "" || weightNew == 0) {
+      setWeightNewValidation(true);
+      setFormValidated(true);
+      return false;
+    } else {
+      setWeightNewValidation(false);
+    }
+
     if (quantityNew === "" || quantityNew == 0) {
       setQuantityNewValidation(true);
       setFormValidated(true);
@@ -161,6 +175,7 @@ const Products = () => {
       newProduct(
         getUser(),
         nameNew,
+        weightNew,
         descriptionNew,
         idProductTypeNew,
         idCountryNew,
@@ -207,6 +222,7 @@ const Products = () => {
           "#" + item.id_products + " " + "-" + " " + decode_utf8(item.name)
         );
         setNameEdit(decode_utf8(item.name));
+        setWeightEdit(item.peso);
         setPriceEdit(item.price);
         setQuantityEdit(item.quantity);
         setDescriptionEdit(decode_utf8(item.description));
@@ -228,6 +244,14 @@ const Products = () => {
     } else {
       setNameEditValidation(false);
     }
+
+    if (weightEdit === "") {
+      setWeightEditValidation(true);
+      return false;
+    } else {
+      setWeightEditValidation(false);
+    }
+
     if (descriptionEdit === "") {
       setDescriptionEditValidation(true);
       return false;
@@ -262,6 +286,7 @@ const Products = () => {
       updateProducs(
         getUser(),
         nameEdit,
+        weightEdit,
         descriptionEdit,
         descriptionLongEdit,
         idCountryEdit,
@@ -330,7 +355,6 @@ const Products = () => {
 
   const getUser = () => {
     const loggedInUser = localStorage.getItem("08191993");
-    console.log(loggedInUser);
     return loggedInUser;
   };
 
@@ -387,7 +411,6 @@ const Products = () => {
   useEffect(() => {
     getUserProducts(getUser())
       .then((x) => {
-        console.log("hola", x);
         if (x !== "No results") {
           setNoProducts(false);
           setProducts(x);
@@ -425,7 +448,7 @@ const Products = () => {
           >
             <Modal.Header closeButton>
               <Modal.Title>
-                Para que el producto sea visible en TienditaCafe, necesitas
+                Para que el producto sea visible en BolsaDeCafe, necesitas
                 incluir una imagen del producto.
               </Modal.Title>
             </Modal.Header>
@@ -473,6 +496,22 @@ const Products = () => {
                     {nameNewValidation ? (
                       <div class="alert alert-danger p-1" role="alert">
                         Necesitas incluir un nombre
+                      </div>
+                    ) : null}
+                  </Form.Group>
+                  <Form.Group controlId="exampleForm.ControlInput1">
+                    <Form.Label>Peso del producto en gramos</Form.Label>
+                    <Form.Control
+                      required
+                      type="number"
+                      placeholder="340"
+                      onChange={(e) => {
+                        setWeightNew(e.target.value);
+                      }}
+                    />
+                    {weightNewValidation ? (
+                      <div class="alert alert-danger p-1" role="alert">
+                        Necesitas incluir un peso
                       </div>
                     ) : null}
                   </Form.Group>
@@ -713,6 +752,22 @@ const Products = () => {
                     {nameEditValidation ? (
                       <div class="alert alert-danger p-1" role="alert">
                         Necesitas incluir un nombre
+                      </div>
+                    ) : null}
+                  </Form.Group>
+                  <Form.Group controlId="exampleForm.ControlInput1">
+                    <Form.Label>Peso del producto</Form.Label>
+                    <Form.Control
+                      required
+                      type="number"
+                      defaultValue={weightEdit}
+                      onChange={(e) => {
+                        setWeightEdit(e.target.value);
+                      }}
+                    />
+                    {weightEditValidation ? (
+                      <div class="alert alert-danger p-1" role="alert">
+                        Necesitas incluir un peso
                       </div>
                     ) : null}
                   </Form.Group>
@@ -1065,6 +1120,7 @@ const Products = () => {
                           <th scope="col">id</th>
                           <th scope="col">Titulo</th>
                           <th scope="col">Precio</th>
+                          <th scope="col">Peso</th>
                           <th
                             scope="col"
                             className="text-center bg-dark text-white"
@@ -1098,6 +1154,7 @@ const Products = () => {
                                   : decode_utf8(item.name)}
                               </td>
                               <td>$ {item.price}</td>
+                              <td>{item.peso} gr</td>
                               <td className="text-center bg-dark text-white">
                                 {item.quantity === 0 ? (
                                   <span className="btn btn-warning btn-sm">
