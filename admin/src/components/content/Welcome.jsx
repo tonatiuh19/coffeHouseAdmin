@@ -54,30 +54,43 @@ const Welcome = () => {
   };
 
   useEffect(() => {
+    let isRendered = true;
     getUser()
-      .then((x) => setUser(x))
+      .then((x) => {
+        if (isRendered) {
+          setUser(x);
+        }
+      })
       .finally(() => {
         getAddressUser(user).then((x) => {
-          if (x === false) {
-            setHasAddress(true);
-          } else {
-            setHasAddress(false);
+          if (isRendered) {
+            if (x === false) {
+              setHasAddress(true);
+            } else {
+              setHasAddress(false);
+            }
           }
         });
         getUserData(user)
           .then((x) => {
-            if (x) {
-              const name = x[0].name + " " + x[0].last_name;
-              setFullName(name);
-            } else {
-              setError(true);
-              setErrorMessage(
-                "Por el momento nuestros servicios se encuentran en mantenimiento, vuelve despues."
-              );
+            if (isRendered) {
+              if (x) {
+                const name = x[0].name + " " + x[0].last_name;
+                setFullName(name);
+              } else {
+                setError(true);
+                setErrorMessage(
+                  "Por el momento nuestros servicios se encuentran en mantenimiento, vuelve despues."
+                );
+              }
             }
           })
           .finally(() => setLoading(false));
       });
+
+    return () => {
+      isRendered = false;
+    };
   }, [fullName]);
 
   const updatingAdrress = (status) => {

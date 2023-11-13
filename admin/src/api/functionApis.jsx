@@ -1,22 +1,19 @@
 import axios from "axios";
 
 //Production
-const domain = 'https://bolsadecafe.com/proveedores/api';
-const domainImage = 'https://bolsadecafe.com/dashboard/user';
+const domain = "https://bolsadecafe.com/proveedores/api";
+const domainImage = "https://bolsadecafe.com/dashboard/user";
 
 //Testing php -S localhost:8015
 /*const domain = "http://localhost:8015";
-const domainImage = 'http://localhost:8015/dashboard/user';*/
+const domainImage = "http://localhost:8015/dashboard/user";*/
 
 export const signIn = async (email, password) => {
   try {
-    const response = await axios.post(
-      `${domain}/login.php`,
-      {
-        email: email,
-        pwd: password,
-      }
-    );
+    const response = await axios.post(`${domain}/login.php`, {
+      email: email,
+      pwd: password,
+    });
     if (response.data === 0) {
       return false;
     } else {
@@ -29,12 +26,24 @@ export const signIn = async (email, password) => {
 
 export const getAddressUser = async (email) => {
   try {
-    const response = await axios.post(
-      `${domain}/getAddressUser.php`,
-      {
-        email: email,
-      }
-    );
+    const response = await axios.post(`${domain}/getAddressUser.php`, {
+      email: email,
+    });
+    if (response.data === 0) {
+      return false;
+    } else {
+      return response.data;
+    }
+  } catch (e) {
+    throw new Error(`😱 Request failed: ${e}`);
+  }
+};
+
+export const getAddressUserById = async (id_adresses) => {
+  try {
+    const response = await axios.post(`${domain}/getAddressUserById.php`, {
+      id_adresses: id_adresses,
+    });
     if (response.data === 0) {
       return false;
     } else {
@@ -47,12 +56,9 @@ export const getAddressUser = async (email) => {
 
 export const getUserData = async (email) => {
   try {
-    const response = await axios.post(
-      `${domain}/getUserData.php`,
-      {
-        email: email,
-      }
-    );
+    const response = await axios.post(`${domain}/getUserData.php`, {
+      email: email,
+    });
     if (response.data === 0) {
       return false;
     } else {
@@ -65,12 +71,9 @@ export const getUserData = async (email) => {
 
 export const getUserSales = async (email) => {
   try {
-    const response = await axios.post(
-      `${domain}/getUserSales.php`,
-      {
-        email: email,
-      }
-    );
+    const response = await axios.post(`${domain}/getUserSales.php`, {
+      email: email,
+    });
     if (response.data === 0) {
       return false;
     } else {
@@ -83,12 +86,20 @@ export const getUserSales = async (email) => {
 
 export const getUserProducts = async (userEmail) => {
   try {
-    const response = await axios.post(
-      `${domain}/getProductsUser.php`,
-      {
-        email: userEmail,
-      }
-    );
+    const response = await axios.post(`${domain}/getProductsUser.php`, {
+      email: userEmail,
+    });
+    return response.data;
+  } catch (e) {
+    return `😱 Request failed: ${e}`;
+  }
+};
+
+export const getUserProductById = async (id_products) => {
+  try {
+    const response = await axios.post(`${domain}/getProductById.php`, {
+      id_products: id_products,
+    });
     return response.data;
   } catch (e) {
     return `😱 Request failed: ${e}`;
@@ -97,9 +108,7 @@ export const getUserProducts = async (userEmail) => {
 
 export const getCountries = async () => {
   try {
-    const response = await axios.post(
-      `${domain}/getCountries.php`
-    );
+    const response = await axios.post(`${domain}/getCountries.php`);
     return response.data;
   } catch (e) {
     return `😱 Request failed: ${e}`;
@@ -108,9 +117,7 @@ export const getCountries = async () => {
 
 export const getTypesProducts = async () => {
   try {
-    const response = await axios.post(
-      `${domain}/getTypesProducts.php`
-    );
+    const response = await axios.post(`${domain}/getTypesProducts.php`);
     return response.data;
   } catch (e) {
     return `😱 Request failed: ${e}`;
@@ -133,24 +140,21 @@ export const updateProducs = async (
   saborType
 ) => {
   try {
-    const response = await axios.post(
-      `${domain}/updateProductsUser.php`,
-      {
-        email: emailUser,
-        name: name,
-        peso: peso,
-        description: description.replace(/\n|\r/g, ""),
-        long_description: descriptionLong.replace(/\n|\r/g, ""),
-        id_country: idCountry,
-        price: price,
-        quantity: quantity,
-        id_products: idProduct,
-        id_product_type: idProductType,
-        id_product_f_acidez_types: acidezType,
-        id_product_f_cuerpo_types: cuerpoType,
-        id_product_f_sabor_types: saborType,
-      }
-    );
+    const response = await axios.post(`${domain}/updateProductsUser.php`, {
+      email: emailUser,
+      name: name,
+      peso: peso,
+      description: description.replace(/\n|\r/g, ""),
+      long_description: descriptionLong.replace(/\n|\r/g, ""),
+      id_country: idCountry,
+      price: price,
+      quantity: quantity,
+      id_products: idProduct,
+      id_product_type: idProductType,
+      id_product_f_acidez_types: acidezType,
+      id_product_f_cuerpo_types: cuerpoType,
+      id_product_f_sabor_types: saborType,
+    });
     return response.data;
   } catch (e) {
     return `😱 Request failed: ${e}`;
@@ -172,23 +176,20 @@ export const newProduct = async (
   saborType
 ) => {
   try {
-    const response = await axios.post(
-      `${domain}/insertNewProduct.php`,
-      {
-        email: emailUser,
-        name: name,
-        peso: peso,
-        description: description.replace(/\n|\r/g, ""),
-        id_product_type: idProductType,
-        id_country: idCountry,
-        long_description: descriptionLong.replace(/\n|\r/g, ""),
-        quantity: quantity,
-        price: price,
-        id_product_f_acidez_types: acidezType,
-        id_product_f_cuerpo_types: cuerpoType,
-        id_product_f_sabor_types: saborType,
-      }
-    );
+    const response = await axios.post(`${domain}/insertNewProduct.php`, {
+      email: emailUser,
+      name: name,
+      peso: peso,
+      description: description.replace(/\n|\r/g, ""),
+      id_product_type: idProductType,
+      id_country: idCountry,
+      long_description: descriptionLong.replace(/\n|\r/g, ""),
+      quantity: quantity,
+      price: price,
+      id_product_f_acidez_types: acidezType,
+      id_product_f_cuerpo_types: cuerpoType,
+      id_product_f_sabor_types: saborType,
+    });
     return response.data;
   } catch (e) {
     return `😱 Request failed: ${e}`;
@@ -207,20 +208,17 @@ export const newAddress = async (
   description
 ) => {
   try {
-    const response = await axios.post(
-      `${domain}/insertNewAddress.php`,
-      {
-        email: emailUser,
-        street: street,
-        no: no,
-        noInt: noInt,
-        city: city,
-        state: state,
-        description: description.replace(/\n|\r/g, ""),
-        cp: cp,
-        colony: colony,
-      }
-    );
+    const response = await axios.post(`${domain}/insertNewAddress.php`, {
+      email: emailUser,
+      street: street,
+      no: no,
+      noInt: noInt,
+      city: city,
+      state: state,
+      description: description.replace(/\n|\r/g, ""),
+      cp: cp,
+      colony: colony,
+    });
     return response.data;
   } catch (e) {
     return `😱 Request failed: ${e}`;
@@ -229,12 +227,9 @@ export const newAddress = async (
 
 export const deactivateProduct = async (idProduct) => {
   try {
-    const response = await axios.post(
-      `${domain}/deactivateProduct.php`,
-      {
-        id_products: idProduct,
-      }
-    );
+    const response = await axios.post(`${domain}/deactivateProduct.php`, {
+      id_products: idProduct,
+    });
     return response.data;
   } catch (e) {
     return `😱 Request failed: ${e}`;
@@ -243,12 +238,9 @@ export const deactivateProduct = async (idProduct) => {
 
 export const getCountUserProducts = async (userEmail) => {
   try {
-    const response = await axios.post(
-      `${domain}/getCountProductUser.php`,
-      {
-        email: userEmail,
-      }
-    );
+    const response = await axios.post(`${domain}/getCountProductUser.php`, {
+      email: userEmail,
+    });
     return response.data;
   } catch (e) {
     return `😱 Request failed: ${e}`;
@@ -257,12 +249,9 @@ export const getCountUserProducts = async (userEmail) => {
 
 export const getUserPacks = async (userEmail) => {
   try {
-    const response = await axios.post(
-      `${domain}/getPacksUser.php`,
-      {
-        email: userEmail,
-      }
-    );
+    const response = await axios.post(`${domain}/getPacksUser.php`, {
+      email: userEmail,
+    });
     return response.data;
   } catch (e) {
     return `😱 Request failed: ${e}`;
@@ -278,17 +267,14 @@ export const newPack = async (
   price
 ) => {
   try {
-    const response = await axios.post(
-      `${domain}/insertPack.php`,
-      {
-        email: emailUser,
-        name: name,
-        description: description.replace(/\n|\r/g, ""),
-        long_description: descriptionLong.replace(/\n|\r/g, ""),
-        quantity: quantity,
-        price: price,
-      }
-    );
+    const response = await axios.post(`${domain}/insertPack.php`, {
+      email: emailUser,
+      name: name,
+      description: description.replace(/\n|\r/g, ""),
+      long_description: descriptionLong.replace(/\n|\r/g, ""),
+      quantity: quantity,
+      price: price,
+    });
     return response.data;
   } catch (e) {
     return `😱 Request failed: ${e}`;
@@ -297,14 +283,11 @@ export const newPack = async (
 
 export const newPackProductsIds = async (idProduct, idCampaign, quantity) => {
   try {
-    const response = await axios.post(
-      `${domain}/insertPackProductsId.php`,
-      {
-        id_products: idProduct,
-        id_campaign: idCampaign,
-        quantity: quantity,
-      }
-    );
+    const response = await axios.post(`${domain}/insertPackProductsId.php`, {
+      id_products: idProduct,
+      id_campaign: idCampaign,
+      quantity: quantity,
+    });
     return response.data;
   } catch (e) {
     return `😱 Request failed: ${e}`;
@@ -313,12 +296,9 @@ export const newPackProductsIds = async (idProduct, idCampaign, quantity) => {
 
 export const getPacksUserProductsIds = async (idProduct) => {
   try {
-    const response = await axios.post(
-      `${domain}/getPacksUserProductsIds.php`,
-      {
-        id_products: idProduct,
-      }
-    );
+    const response = await axios.post(`${domain}/getPacksUserProductsIds.php`, {
+      id_products: idProduct,
+    });
     return response.data;
   } catch (e) {
     return `😱 Request failed: ${e}`;
@@ -335,18 +315,79 @@ export const updatePack = async (
   price
 ) => {
   try {
-    const response = await axios.post(
-      `${domain}/updatePack.php`,
-      {
-        email: emailUser,
-        id_products: idProduct,
-        name: name,
-        description: description.replace(/\n|\r/g, ""),
-        long_description: descriptionLong.replace(/\n|\r/g, ""),
-        quantity: quantity,
-        price: price,
-      }
-    );
+    const response = await axios.post(`${domain}/updatePack.php`, {
+      email: emailUser,
+      id_products: idProduct,
+      name: name,
+      description: description.replace(/\n|\r/g, ""),
+      long_description: descriptionLong.replace(/\n|\r/g, ""),
+      quantity: quantity,
+      price: price,
+    });
+    return response.data;
+  } catch (e) {
+    return `😱 Request failed: ${e}`;
+  }
+};
+
+export const updateOrder = async (
+  shipment_id,
+  shipment_price,
+  shipment_provider,
+  shipment_tracking_number,
+  id_orders,
+  description,
+  type,
+  email_user
+) => {
+  try {
+    const response = await axios.post(`${domain}/updateOrder.php`, {
+      shipment_id: shipment_id,
+      shipment_price: shipment_price,
+      shipment_provider: shipment_provider,
+      shipment_tracking_number: shipment_tracking_number,
+      id_orders: id_orders,
+      description: description.replace(/\n|\r/g, ""),
+      type: type,
+      email_user: email_user,
+    });
+    return response.data;
+  } catch (e) {
+    return `😱 Request failed: ${e}`;
+  }
+};
+
+export const editOrder = async (
+  shipment_id,
+  shipment_price,
+  shipment_provider,
+  shipment_tracking_number,
+  id_orders,
+  description,
+  email_user
+) => {
+  try {
+    const response = await axios.post(`${domain}/editOrder.php`, {
+      shipment_id: shipment_id,
+      shipment_price: shipment_price,
+      shipment_provider: shipment_provider,
+      shipment_tracking_number: shipment_tracking_number,
+      id_orders: id_orders,
+      description: description.replace(/\n|\r/g, ""),
+      email_user: email_user,
+    });
+    return response.data;
+  } catch (e) {
+    return `😱 Request failed: ${e}`;
+  }
+};
+
+export const completeOrder = async (id_orders, email_user) => {
+  try {
+    const response = await axios.post(`${domain}/completeOrder.php`, {
+      id_orders: id_orders,
+      email_user: email_user,
+    });
     return response.data;
   } catch (e) {
     return `😱 Request failed: ${e}`;
@@ -359,14 +400,11 @@ export const updatePackProductsIds = async (
   quantity
 ) => {
   try {
-    const response = await axios.post(
-      `${domain}/updatePackProductsId.php`,
-      {
-        id_products: idProduct,
-        id_campaign: idCampaign,
-        quantity: quantity,
-      }
-    );
+    const response = await axios.post(`${domain}/updatePackProductsId.php`, {
+      id_products: idProduct,
+      id_campaign: idCampaign,
+      quantity: quantity,
+    });
     return response.data;
   } catch (e) {
     return `😱 Request failed: ${e}`;
@@ -375,12 +413,9 @@ export const updatePackProductsIds = async (
 
 export const getProductImage = async (idProduct) => {
   try {
-    const response = await axios.post(
-      `${domainImage}/getImage.php`,
-      {
-        id_products: idProduct,
-      }
-    );
+    const response = await axios.post(`${domainImage}/getImage.php`, {
+      id_products: idProduct,
+    });
     return response.data;
   } catch (e) {
     return `😱 Request failed: ${e}`;
@@ -394,13 +429,9 @@ export const uploadFile = async (file) => {
 
   formData.append("avatar", file);
 
-  return await axios.post(
-    `${domainImage}/uploadImage.php`,
-    formData,
-    {
-      headers: {
-        "content-type": "multipart/form-data",
-      },
-    }
-  );
+  return await axios.post(`${domainImage}/uploadImage.php`, formData, {
+    headers: {
+      "content-type": "multipart/form-data",
+    },
+  });
 };
